@@ -5,8 +5,9 @@ ARG docker_filepath=dockers/machine/files
 # install node_modules to an anon volume
 WORKDIR /appsrc/machine
 
-COPY machine/package.json /appsrc/machine/
-RUN dos2unix /appsrc/machine/package.json
+COPY machine/package*.json /appsrc/machine/
+RUN dos2unix /appsrc/machine/package.json  \
+	&& dos2unix /appsrc/machine/package-lock.json
 RUN npm install --silent --progress=false
 
 COPY ${docker_filepath}/entrypoint.sh /root/

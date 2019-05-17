@@ -9,7 +9,8 @@ COPY config/machine_config.json /appsrc/config/machine_config.json
 # install node_modules to an anon volume
 WORKDIR /appsrc/machine
 
-RUN dos2unix /appsrc/machine/package.json
+RUN dos2unix /appsrc/machine/package.json \
+	&& dos2unix /appsrc/machine/package-lock.json
 RUN npm install --silent --progress=false
 
 COPY ${docker_filepath}/entrypoint.sh /root/

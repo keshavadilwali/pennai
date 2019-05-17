@@ -23,14 +23,16 @@ RUN cp  /etc/apache2/mods-available/rewrite* /etc/apache2/mods-enabled \
 
 # install lab/webapp/node_modules to an anon volume
 WORKDIR /appsrc/lab/webapp
-COPY lab/webapp/package.json /appsrc/lab/webapp/
-RUN dos2unix /appsrc/lab/webapp/package.json
+COPY lab/webapp/package*.json /appsrc/lab/webapp/
+RUN dos2unix /appsrc/lab/webapp/package.json \
+	&& dos2unix /appsrc/lab/webapp/package-lock.json
 RUN npm install --silent --progress=false
 
 # install lab/node_modules to an anon volume
 WORKDIR /appsrc/lab
-COPY lab/package.json /appsrc/lab/
-RUN dos2unix /appsrc/lab/package.json
+COPY lab/package*.json /appsrc/lab/
+RUN dos2unix /appsrc/lab/package.json  \
+	&& dos2unix /appsrc/lab/package-lock.json
 RUN npm install --silent --progress=false
 
 ## ai/metalearning python packages

@@ -36,6 +36,7 @@ RUN npm install -g jest
 
 # install lab/webapp/node_modules to an anon volume
 WORKDIR /appsrc/lab/webapp
-COPY lab/webapp/package.json /appsrc/lab/webapp/
-RUN dos2unix /appsrc/lab/webapp/package.json
+COPY lab/webapp/package*.json /appsrc/lab/webapp/
+RUN dos2unix /appsrc/lab/webapp/package.json \
+    && dos2unix /appsrc/lab/webapp/package-lock.json
 RUN npm install --silent --progress=false
